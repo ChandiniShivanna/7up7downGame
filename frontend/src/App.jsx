@@ -12,6 +12,8 @@ const diceImages = {
   5: "/Images/dice5.png",
   6: "/Images/dice6.png",
 };
+const API =
+  import.meta.REACT_APP_API || "https://sevenup7downgame-79wq.onrender.com";
 const App = () => {
   const [points, setPoints] = useState(5000);
   const [choice, setChoice] = useState("7up");
@@ -22,26 +24,23 @@ const App = () => {
   const [rolling, setRolling] = useState(false);
 
   useEffect(() => {
-    axios.post("http://localhost:3000/api/7up7downGame/startGame");
+    axios.post(API + "/api/7up7downGame/startGame");
   }, []);
 
   const rollDice = () => {
     setloading(true);
     setRolling(true);
     axios
-      .post("http://localhost:3000/api/7up7downGame/roll-dice")
+      .post(API + "/api/7up7downGame/roll-dice")
       .then((res) => {
         setTimeout(() => {
           setDice(res.data);
         }, 1000);
-        return axios.post(
-          "http://localhost:3000/api/7up7downGame/updatePoints",
-          {
-            bet,
-            choice,
-            sum: res.data.sum,
-          }
-        );
+        return axios.post(API + "/api/7up7downGame/updatePoints", {
+          bet,
+          choice,
+          sum: res.data.sum,
+        });
       })
       .then((res) => {
         setPoints(res.data.points);
