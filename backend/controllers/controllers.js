@@ -10,6 +10,10 @@ const diceResult = (req, res) => {
   res.json({ dice1, dice2, sum });
 };
 
+const startGame = (req, res) => {
+  playerPoints = 5000;
+  res.json({ points: playerPoints });
+};
 const updatePoints = (req, res) => {
   const { bet, choice, sum } = req.body;
   //   console.log(bet, choice, sum);
@@ -28,4 +32,4 @@ const updatePoints = (req, res) => {
   //   console.log(playerPoints);
   res.json({ points: playerPoints, winPoints });
 };
-module.exports = { diceResult, updatePoints };
+module.exports = { diceResult, updatePoints, startGame };
